@@ -188,6 +188,34 @@ function myFunction() {
     let a = 2;
 }
 
+/* Data types
+    Data types are used to classify eight fundamental values used for programming in JavaScript, including 
+        primitive and object types.
+
+    7 JSata types       Definition
+    _______
+    number              1, -2, 100, 2.42 - Number
+    bigint              >2^53-1 or <2^53-1
+    string              "" or '' - String
+    boolean             false or true
+    null                Intentional absense of a value - None wrapper jobject
+    undefined           Unintentional abs of value - None wrapper object
+    symbol              newer
+
+    Objects             Can have fields with several values inside ^
+*/
+
+let bignum = 9999999999999999999999n;
+let greeting = 'hi!';
+let message = "ldksjdlk";
+let late = true;
+let finishCourse = undefined;
+let finishStudyingDate = null;
+const user = {
+    name: 'Jane',
+    age: 20,
+    isActive: true,
+  };
 
 /* Conditionals
 An if statement checks a condition and will execute a task if that condition evaluates to true.
@@ -244,39 +272,6 @@ function eightBall() {
       
       console.log(eightBall);
 }
-
-
-
-
-
-// More Function expression exalmples... (used with Callbacks)
-
-/* Callbacks - 3 wayss :)
-    1. Normal function
-    2. Anonymous Inline Function
-    3. Arrow expression
-
-    Some types of functions directly accept a callback...see below.
-
-
-1. Normal function - 
-function popUpAlert() {
-    alert('Time is up.');
-}
-setTimeout(popUpAlert, 1000); // this built in function accepts a callback.
-
-
-2. Anonymous INNLINE FUNCTION - "a fuction created as an expression"
-setTimeout(function() {alert("Time's up!"); }, 1000);
-
-
-// 3. Arrow function
-
-// Callbacks
-setTimeout(() => {
-    console.log("Time's up!");
-}, 1000);
-*/
 
 
 /* JS Data Structures 
@@ -446,40 +441,176 @@ console.log(man1.greeting());
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* JS THIS*/
 
 
+// More Function expression exalmples... (used with Callbacks)
+
+/* Callbacks - 3 wayss :)
+    1. Normal function
+    2. Anonymous Inline Function
+    3. Arrow expression
+
+    Some types of functions directly accept a callback...see below.
 
 
+1. Normal function - 
+function popUpAlert() {
+    alert('Time is up.');
+}
+setTimeout(popUpAlert, 1000); // this built in function accepts a callback.
 
 
+2. Anonymous INNLINE FUNCTION - "a fuction created as an expression"
+setTimeout(function() {alert("Time's up!"); }, 1000);
+
+// 3. Arrow function
+
+// Callbacks
+setTimeout(() => {
+    console.log("Time's up!");
+}, 1000);
+*/
+
+/* FUNCTIONS (https://www.codecademy.com/resources/docs/javascript/functions)
+    Define in scope where it's called
+    function keyword
+    function name
+    list of parameters
+    function body
 
 
+*/
+
+function sum2(n1, n2) {
+    let r = n1 + n2;
+    return r
+}
+console.log(sum2(3, 4));
 
 
+/* Arrow functions 
+    No need for `function` keyword just =>
+    - single param fxns do not need ()
+    - multiple params use (p1, p2)
+    - Body of the arrow function *is returned*
+    - Do not have bindings to `this` so you cant' use as `object methods` or constructors
+
+*/
+// No args
+const printHello = () => {
+    console.log('hello');
+}
+
+printHello();
+
+const checkWeight = (weight) => {
+    console.log(`Baggage weight : ${weight} kilograms.`);
+  };
+  
+// one arg
+checkWeight(25);
+ 
+const sum = (firstParam, secondParam) => {
+    return firstParam + secondParam;
+};
+// 2 args
+console.log(sum(2, 5));
+
+// Concise Arrow function / Anon function combo!
+const multiply2 = (a, b) => a * b;
+console.log(multiply2(2, 300));
+
+// ANONYMOUS functions - do not have a  `name` property
+const anon = function() {
+    return 'booOm!';
+}
+
+// VOID functions - use the `void` keyword for denoting expressions that return undefined. 
+    // Allow functions to work as expressions and are not definitions
+void function printHello() {
+    console.log("Hello, Code Ninjas!");
+  }();
 
 
+/* CALLBACKs
+  https://www.codecademy.com/resources/docs/javascript/callbacks
+  - Callback funcs are JS Functions that are passed as _arguments_ to higher order functions
+  - A callback func can be _invoked_ during the _execution_ or the higher order function that it is an argument of.
+
+  FUNCTIONS are Objects :)
+  - In JS, Funcions can be passed as arguments to other functions because they are objects
+  - Note callback functions must (?) or often have a - return statement - in order to return something up the chain ^ ^ ^
+  - Callback functions are called by "higher order functions"
+    - chain of callbacks1 > higher order1 ( callback2 ) > higher order2 > etc.
+
+*/
+function doubleResult(n1, n2, calc) { // Accepts 3 arguments: 2 numbers and a function called "calc"
+    return calc(n1, n2) * 2;
+}
+
+function add(n1, n2) { // Accepts 2 args: 2 numbers
+    return n1 + n2; // Return statement is key!
+}
+
+function multiply(n1, n2) { // Accepts 2 args: 2 numbers
+    return n1 * n2;
+}
+
+console.log(doubleResult(4, 2, add));
+console.log(doubleResult(4, 2, multiply)); // pass in to calc 2 options <<
 
 
+// Callbacks + higher order example..
+function createNewArray(arr, callback) { // Higher order funcion _create New array_ takes some arbitray callback!
+    const output = [];
+    for (let i = 0; i < arr.length; i++) {
+        output.push(callback(arr[i]));      // Calls the callback
+    };
+    return output;
+}
+
+// Callback1
+function checkIfNum(n) {
+    return typeof n;
+}
+function double(input) { return input * 2; }; // Callback 2
+function divide(input) { return input / 2; };
+function increment(input) { return input + 1 }
+
+console.log(createNewArray([1, 2, 3, 'sdlk', 5], checkIfNum));
+// [ 'number', 'number', 'number', 'string', 'number' ]
+console.log(createNewArray([1, 2, 3, 4, 5], double));
+// [ 2, 4, 6, 8, 10 ]
+console.log(createNewArray([1, 3, 4, 5], divide));
+// [ 0.5, 1.5, 2, 2.5 ]
+console.log(createNewArray([1, 4, 5], increment));
+// [ 2, 5, 6 ]
 
 
+/* Javascript EVENTS aka "scripting code" and EVENT HANDLERS
+
+    Things that happen in HTML objects that can trigger "scripting code"
+    
+    - See template.html -
+
+    HTML objects can execute Javascript in 2 way
+    1. JS code can be an attribute
+
+    <button onclick="window.alert('Hello World!');">Click Me!</button>
 
 
+    2. Separate script an define an "event handler" on hte object that executes when the event is fired.
+    Ex. there is this HTML on the page with the object of interest.
 
+    <button id="hello-button">Click Me!</button>
 
+    Then, in a separate script, the object is referred to and assigned an _event handler_
+
+*/
+var btn = document.getElementById('hello-button');
+console.log('btn', btn);
+
+btn.addEventListener('click', () => {
+  window.alert('Hello World!');
+});
